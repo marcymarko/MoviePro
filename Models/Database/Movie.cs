@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using MoviePro.Enums;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -39,5 +40,12 @@ namespace MoviePro.Models.Database
         [NotMapped]
         [Display(Name = " Backdrop Image")]
         public IFormFile BackdropFile { get; set; }
+
+        //  nav properties
+        public ICollection<MovieCollection> Collections { get; set; } = new HashSet<MovieCollection>();
+        //movie is parent of the next two properties
+        public ICollection<MovieCast> Cast { get; set; } = new HashSet<MovieCast>();
+        public ICollection<MovieCrew> Crew { get; set; } = new HashSet<MovieCrew>();
+
     }
 }
