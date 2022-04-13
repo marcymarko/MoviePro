@@ -25,7 +25,7 @@ namespace MoviePro.Models.Database
         public float VoteAverage { get; set; }
 
         public byte[] Poster { get; set; }
-        public string PostreType { get; set; }
+        public string PosterType { get; set; }
 
 
         public byte[] Backdrop { get; set; }
