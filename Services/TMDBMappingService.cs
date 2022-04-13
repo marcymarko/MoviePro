@@ -1,10 +1,10 @@
 ﻿
 using Microsoft.Extensions.Options;
-using MoviePro.Models.Settings;
-using MoviePro.Services.Interfaces;
 using MoviePro.Enums;
 using MoviePro.Models.Database;
+using MoviePro.Models.Settings;
 using MoviePro.Models.TMDB;
+using MoviePro.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -68,8 +68,7 @@ namespace MovieProDemo.Services
                 var crewMembers = movie.credits.crew.OrderByDescending(c => c.popularity)
                                                     .GroupBy(c => c.id)
                                                     .Select(g => g.First())
-                                                    .Take(20)
-                                                    .ToList();
+                                                    .Take(20).ToList();
 
                 crewMembers.ForEach(member =>
                 {
