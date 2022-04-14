@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace MoviePro.Controllers
 {
-    public class MovieCollections : Controller
+    public class MovieCollectionsController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public MovieCollections(ApplicationDbContext context)
+        public MovieCollectionsController(ApplicationDbContext context)
         {
             _context = context;
         }
