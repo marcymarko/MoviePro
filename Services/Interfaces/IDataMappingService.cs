@@ -7,6 +7,6 @@ namespace MoviePro.Services.Interfaces
     public interface IDataMappingService
     {
         Task<Movie> MapMovieDetailAsync(MovieDetail movie);
-        Task<Movie> MapActorDetail(ActorDetail actor);
+        ActorDetail MapActorDetail(ActorDetail actor);
     }
 }

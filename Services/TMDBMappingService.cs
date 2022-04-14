@@ -1,5 +1,4 @@
-﻿
-using Microsoft.Extensions.Options;
+﻿using Microsoft.Extensions.Options;
 using MoviePro.Enums;
 using MoviePro.Models.Database;
 using MoviePro.Models.Settings;
@@ -24,6 +23,31 @@ namespace MovieProDemo.Services
             _imageService = imageService;
         }
 
+        public ActorDetail MapActorDetail(ActorDetail actor)
+        {
+            //1. Image
+            actor.profile_path = BuildCastImage(actor.profile_path);
+
+            //2. Bio
+            if (string.IsNullOrEmpty(actor.biography))
+            {
+                actor.biography = "Not Available";
+            }
+
+            //Place of birth
+            if (string.IsNullOrEmpty(actor.place_of_birth))
+            {
+                actor.place_of_birth = "Not Available";
+            }
+
+            //Birthday
+            if (string.IsNullOrEmpty(actor.birthday))
+                actor.birthday = "Not Available";
+            else
+                actor.birthday = DateTime.Parse(actor.birthday).ToString("MMM dd, yyyy");
+
+            return actor;
+        }
 
         public async Task<Movie> MapMovieDetailAsync(MovieDetail movie)
         {
@@ -92,34 +116,6 @@ namespace MovieProDemo.Services
             return newMovie;
         }
 
-        public ActorDetail MapActorDetail(ActorDetail actor)
-        {
-            //1. Image
-            actor.profile_path = BuildCastImage(actor.profile_path);
-
-            //2. Bio
-            if (string.IsNullOrEmpty(actor.biography))
-            {
-                actor.biography = "Not Available";
-            }
-
-            //Place of birth
-            if (string.IsNullOrEmpty(actor.place_of_birth))
-            {
-                actor.place_of_birth = "Not Available";
-            }
-
-            //Birthday
-            if (string.IsNullOrEmpty(actor.birthday))
-                actor.birthday = "Not Available";
-            else
-                actor.birthday = DateTime.Parse(actor.birthday).ToString("MMM dd, yyyy");
-
-            return actor;
-        }
-
-
-
         private async Task<byte[]> EncodeBackdropImageAsync(string path)
         {
             var backdropPath = $"{_appSettings.TMDBSettings.BaseImagePath}/{_appSettings.MovieProSettings.DefaultBackdropSize}/{path}";
@@ -168,10 +164,7 @@ namespace MovieProDemo.Services
 
             return $"{_appSettings.TMDBSettings.BaseImagePath}/{_appSettings.MovieProSettings.DefaultPosterSize}/{profilePath}";
         }
-
-        Task<Movie> IDataMappingService.MapActorDetail(ActorDetail actor)
-        {
-            throw new NotImplementedException();
-        }
     }
+
+   
 }
